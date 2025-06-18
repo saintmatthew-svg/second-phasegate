@@ -1,8 +1,14 @@
 import react from 'react'
 
-const ToDo =  () => {
+const ToDo = ({text, updateMode, deleteToDo}) => {
     return (
-        <div>ToDo</div>
+        <div className="todo">
+            <div className="text">{text}</div>
+            <div className="icons">
+                <BiEdit className='icon' onClick={updateMode} />
+                <AifillDelete className='icon' onClick={deleteToDo} />
+            </div>
+        </div>
     )
 }
 

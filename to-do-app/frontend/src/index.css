@@ -39,8 +39,11 @@ input{
 }
 
 .add{
-  background-color: black;
+  background-color: green;
   color: white;
   padding: 0.5rem 1.5rem;
   cursor: pointer;
+}
+.add:hover{
+  color: black;
 }

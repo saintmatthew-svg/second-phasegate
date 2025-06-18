@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
   let currentQuestionIndex = 0;
   let userAnswers = {};
 
-  // Role selection
   document.getElementById('student-btn').addEventListener('click', function() {
     roleSelection.style.display = 'none';
     studentSection.style.display = 'block';
@@ -27,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
     adminSection.style.display = 'block';
   });
 
-  // Student login
   loginForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     const studentName = document.getElementById('student-name').value;
@@ -51,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Show current question
   function showQuestion(index) {
     if (index >= quizzes.length) {
       submitQuiz();
@@ -84,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
     currentQuestionIndex = index;
   }
 
-  // Next question
   nextQuestionBtn.addEventListener('click', function(e) {
     e.preventDefault();
     const formData = new FormData(quizForm);
@@ -100,7 +96,6 @@ document.addEventListener('DOMContentLoaded', function() {
     showQuestion(currentQuestionIndex + 1);
   });
 
-  // Submit quiz
   submitQuizBtn.addEventListener('click', function(e) {
     e.preventDefault();
     const formData = new FormData(quizForm);
@@ -151,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Admin add question
   addQuizForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     
