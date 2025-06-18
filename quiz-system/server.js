@@ -5,13 +5,20 @@ const connectDB = require('./db');
 const Quiz = require('./quizModel');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3030;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
 connectDB();
+
+const studentSchema = new mongoose.Schema({
+  name: String,
+  score: Number
+});
+
+const Student = mongoose.model('Student', studentSchema);
 
 app.get('/api/quizzes', async (request, respond) => {
   try {
@@ -38,10 +45,19 @@ app.post('/api/quizzes', async (request, respond) => {
   }
 });
 
-app.post('/api/quizzes/submit', async (request, respond) => {
+app.post('/api/students', async (req, res) => {
   try {
+    const student = new Student(req.body);
+    await student.save();
+    res.status(201).send(student);
+  } catch (error) {
+    res.status(400).send({ error: 'Error saving student' });
+  }
+});
 
-    const { answers } = request.body;
+app.post('/api/quizzes/submit', async (req, res) => {
+  try {
+    const { answers, studentName } = req.body;
     const quizzes = await Quiz.find({ _id: { $in: Object.keys(answers) } });
     
     let score = 0;
@@ -56,9 +72,12 @@ app.post('/api/quizzes/submit', async (request, respond) => {
       };
     });
 
-    respond.json({ score, total: quizzes.length, results });
+    const student = new Student({ name: studentName, score });
+    await student.save();
+
+    res.send({ score, total: quizzes.length, results });
   } catch (error) {
-    respond.status(500).json({ message: error.message });
+    res.status(500).send({ error: 'Error submitting quiz' });
   }
 });
 
