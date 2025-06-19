@@ -9,11 +9,11 @@ function App() {
           <div className="top">
             <input type="text" placeholder="Add ToDo..."/>
 
-            <div className="add">Add</div>
+            <div className="add">✔️Add</div>
           </div>
 
           <div className="list">
-            
+
           </div>
 
       </div>
