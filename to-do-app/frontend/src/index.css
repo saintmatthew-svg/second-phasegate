@@ -50,8 +50,8 @@ input{
 .todo{
   position: relative;
   margin-top: 1rem;
-  background-color: black;
-  color: white;
+  background-color: rgb(69, 202, 255);
+  color: black;
   padding: 1.5rem 3rem;
   border-radius: 5px;
 }

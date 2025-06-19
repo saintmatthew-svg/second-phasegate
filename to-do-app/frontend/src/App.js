@@ -1,14 +1,34 @@
 import { useEffect, useState } from "react";
 import ToDo from "./components/ToDo";
+import Modal from "./components/Modal";
 import { getAllToDo, addToDo, updateToDo, deleteToDo } from "./utils/HandleApi";
 
 function App() {
   const [toDo, setToDo] = useState([]);
   const [text, setText] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentToDo, setCurrentToDo] = useState(null);
 
   useEffect(() => {
     getAllToDo(setToDo);
   }, []);
+
+  const openModal = (item) => {
+    setCurrentToDo(item);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setCurrentToDo(null);
+  };
+
+  const saveToDo = (newText) => {
+    if (currentToDo) {
+      updateToDo(currentToDo._id, newText, setToDo);
+      closeModal();
+    }
+  };
 
   return (
     <div className="App">
@@ -33,16 +53,18 @@ function App() {
             <ToDo 
               key={item._id} 
               text={item.text} 
-              updateMode={() => {
-                const newText = prompt("Update todo", item.text);
-                if (newText) {
-                  updateToDo(item._id, newText, setToDo);
-                }
-              }}
+              updateMode={() => openModal(item)}
               deleteToDo={() => deleteToDo(item._id, setToDo)}
             />
           ))}
         </div>
+
+        <Modal 
+          show={isModalOpen} 
+          handleClose={closeModal} 
+          handleSave={saveToDo} 
+          initialText={currentToDo ? currentToDo.text : ""} 
+        />
       </div>
     </div>
   );
