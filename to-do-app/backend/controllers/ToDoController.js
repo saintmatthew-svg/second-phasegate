@@ -43,5 +43,17 @@ module.exports = {
       console.log(err)
       res.status(500).send("Error deleting todo")
     }
+  },
+
+  toggleComplete: async (req, res) => {
+    const {_id} = req.body
+    try {
+      const todo = await ToDoModel.findById(_id)
+      await ToDoModel.findByIdAndUpdate(_id, {completed: !todo.completed})
+      res.send("Toggled successfully...")
+    } catch (err) {
+      console.log(err)
+      res.status(500).send("Error toggling todo")
+    }
   }
 }

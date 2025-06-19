@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const quizContainer = document.getElementById('quiz-container');
   const quizForm = document.getElementById('quiz-form');
   const nextQuestionBtn = document.getElementById('next-question');
+  const previousQuestionBtn = document.getElementById('previous-question');
   const submitQuizBtn = document.getElementById('submit-quiz');
   const resultsDiv = document.getElementById('results');
   const currentQuestionDiv = document.getElementById('current-question');
@@ -78,6 +79,12 @@ document.addEventListener('DOMContentLoaded', function() {
       submitQuizBtn.style.display = 'none';
     }
 
+    if (index > 0) {
+      previousQuestionBtn.style.display = 'block';
+    } else {
+      previousQuestionBtn.style.display = 'none';
+    }
+
     currentQuestionIndex = index;
   }
 
@@ -94,6 +101,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const quizId = quizForm.querySelector('input[name="quizId"]').value;
     userAnswers[quizId] = selectedOption;
     showQuestion(currentQuestionIndex + 1);
+  });
+
+  previousQuestionBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    showQuestion(currentQuestionIndex - 1);
   });
 
   submitQuizBtn.addEventListener('click', function(e) {

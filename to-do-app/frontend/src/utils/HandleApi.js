@@ -36,4 +36,11 @@ const deleteToDo = (toDoId, setToDo) => {
     .catch((err) => console.log(err));
 };
 
-export { getAllToDo, addToDo, updateToDo, deleteToDo };
+const toggleComplete = (toDoId, setToDo) => {
+  axios
+    .post(`${baseurl}/toggle`, { _id: toDoId })
+    .then(() => getAllToDo(setToDo))
+    .catch((err) => console.log(err));
+};
+
+export { getAllToDo, addToDo, updateToDo, deleteToDo, toggleComplete };
