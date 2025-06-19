@@ -24,7 +24,7 @@ function App() {
           />
           <div 
             className="add" 
-            onClick={() => addToDo(text, setText, setToDo)}>✅Add
+            onClick={() => addToDo(text, setText, setToDo)}>✔️Add
           </div>
         </div>
 
